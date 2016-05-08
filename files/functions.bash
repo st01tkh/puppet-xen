@@ -20,7 +20,7 @@ function add_bridge_ports_to_each_xenbr() {
   local ifnum; 
   local ifport;
   [ ! -e "$path" ] && echo "Error: no such file '$path' or it's not a dir" && return 1
-  grep -R -v '^#' "$path" | sed -nr 's/^.*(xenbr[0-9]+).*$/\1/p' | sort | uniq \
+  grep -R -v '^#' "$path" | sed -nr 's/^\W*iface\W+(xenbr[0-9]+).*$/\1/p' | sort | uniq \
     | while read line; do
       ifnum="$(echo "$line" | sed -nr 's/^.*([0-9]+)$/\1/p')"
       ifport="eth$ifnum"
