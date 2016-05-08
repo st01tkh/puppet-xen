@@ -6,6 +6,7 @@ function add_auto_manual_to_each_xenbr() {
   grep -R -v '^#' "$path" | sed -nr 's/^.*(xenbr[0-9]+).*$/\1/p' | sort | uniq \
     | sed 's/xenbr/eth/' \
     | while read line; do
+        echo "line: $line"
       grep -q -F "auto $line" "$path" || echo "auto $line" >> "$path"
       grep -q -F "iface $line inet manual" "$path" || echo "iface $line inet manual" >> "$path"
     done
@@ -24,7 +25,8 @@ function add_bridge_ports_to_each_xenbr() {
     | while read line; do
       ifnum="$(echo "$line" | sed -nr 's/^.*([0-9]+)$/\1/p')"
       ifport="eth$ifnum"
-      sed -i -r "/iface $line/a \ \ \ \ bridge_ports $ifport" "$path" 
+      grep "iface $line" -A 1 "$path" | grep -q -F "bridge_ports $ifport" || sed -i -r "/iface $line/a \ \ \ \ bridge_ports $ifport" "$path" 
+      #sed -i -r "/iface $line/a \ \ \ \ bridge_ports $ifport" "$path" 
   done
 }
 
