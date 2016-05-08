@@ -13,7 +13,8 @@ class xen::host::network($networking_type = 'bridged', $scenario = '') {
   }
   case $networking_type {
     'bridged': {
-      include xen::host::packages::bridge
+      class {'xen::host::packages::bridge': } ->
+      class {'xen::host::network::type::bridged': }
     }
   }
 }
