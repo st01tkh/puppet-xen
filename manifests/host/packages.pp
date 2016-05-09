@@ -12,8 +12,7 @@ class xen::host::packages($set = 'minimal', $networking_type = 'bridge') {
   } 
   case $networking_type {
     'bridge': {
-	notify {'installing bridge': }
-	include xen::host::packages::bridge
+	  include xen::host::packages::bridge
     }
   }
 }

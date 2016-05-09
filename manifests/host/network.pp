@@ -3,17 +3,19 @@ class xen::host::network($networking_type = 'bridged', $scenario = '') {
   case $operatingsystem {
     'Ubuntu': {
       case $lsbdistcodename {
-        'trusty', 'precise': {
+        'precise': {
           service {'network-manager':
             enable => false,
           }
+        }
+        'trusty': {
+          class {'xen::host::network::fix::cloud_init_nonet_hangs': }
         }
       }
     }
   }
   case $networking_type {
     'bridged': {
-      class {'xen::host::packages::bridge': } ->
       class {'xen::host::network::type::bridged': }
     }
   }
