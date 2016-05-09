@@ -1,0 +1,5 @@
+*.log
+*~
+.*~
+files/xen-tools/domains
+files/xen-tools/*.xenconfig
