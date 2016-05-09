@@ -28,11 +28,13 @@ class xen::host::network::type::bridged {
           }
           exec {'replace_eth_to_xenbr_in_interfaces_file':
             path => ['/bin', '/sbin', '/usr/bin', '/usr/sbin', '/usr/local/bin', '/usr/local/sbin'],
-            command => "sed -i 's/eth/xenbr/g' /etc/network/interfaces",
+            cwd => '/tmp/puppet_xen_module_tmp.d',
+            command => "bash functions.bash rexif",
           }
           exec {'replace_eth_to_xenbr_in_interfaces_d':
             path => ['/bin', '/sbin', '/usr/bin', '/usr/sbin', '/usr/local/bin', '/usr/local/sbin'],
-            command => "find /etc/network/interfaces.d -type f | xargs -I {} sed -i 's/eth/xenbr/g' {}",
+            cwd => '/tmp/puppet_xen_module_tmp.d',
+            command => "bash functions.bash rexid",
           }
           exec {'add_auto_manual_to_interfaces':
             path => ['/bin', '/sbin', '/usr/bin', '/usr/sbin', '/usr/local/bin', '/usr/local/sbin'],

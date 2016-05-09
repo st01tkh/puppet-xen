@@ -150,6 +150,7 @@ if [ "$self_fpath" = "$exec_fpath" ]; then
       add_bridge_ports_to_each_xenbr_in_interfaces && add_bridge_ports_to_each_xenbr_in_interfaces_d
       ;;
     all)
+      replace_eth_to_xenbr_in_interfaces && replace_eth_to_xenbr_in_interfaces_d
       add_auto_manual_to_each_xenbr_in_interfaces && add_auto_manual_to_each_xenbr_in_interfaces_d
       add_bridge_ports_to_each_xenbr_in_interfaces && add_bridge_ports_to_each_xenbr_in_interfaces_d
       ;;
